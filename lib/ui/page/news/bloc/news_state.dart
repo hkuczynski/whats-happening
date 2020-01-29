@@ -4,22 +4,30 @@ abstract class NewsState extends Equatable {
   const NewsState();
 }
 
-class NewsInitial extends NewsState {
+class NewsInitialState extends NewsState {
   @override
   List<Object> get props => [];
 }
 
-class NewsInitialLoad extends NewsState {
+class NewsInitialLoadState extends NewsState {
   @override
   List<Object> get props => [];
 }
 
-class NewsLoadError extends NewsState {
+class NewsLoadErrorState extends NewsState {
   @override
   List<Object> get props => [];
 }
 
-class NewsLoaded extends NewsState {
+class NewsLoadedState extends NewsState {
+  const NewsLoadedState({
+    this.items = const [],
+    this.isRefreshing = false,
+  });
+
+  final List<News> items;
+  final bool isRefreshing;
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [items, isRefreshing];
 }
