@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'package:whats_happening/ui/constants.dart';
+
 class NewsItem extends StatelessWidget {
   const NewsItem({
     @required this.title,
@@ -15,9 +19,42 @@ class NewsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _NewsItemHeader(title: title),
+        _NewsItemContent(imageUrl: imageUrl),
+      ],
+    );
+  }
+}
+
+class _NewsItemHeader extends StatelessWidget {
+  const _NewsItemHeader({@required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(AppConstants.margin),
+      child: Text(title, maxLines: 1),
+    );
+  }
+}
+
+class _NewsItemContent extends StatelessWidget {
+  const _NewsItemContent({@required this.imageUrl});
+
+  final String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       color: Colors.red.withOpacity(0.1),
-      child: Text(title),
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        height: 150,
+      ),
     );
   }
 }

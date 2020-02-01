@@ -1,28 +1,39 @@
 import 'dart:async';
 
+import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:whats_happening/data/mock/news.dart';
+
 import 'package:whats_happening/data/model/news.dart';
+import 'package:whats_happening/data/repository/news_repository.dart';
 
 part 'news_event.dart';
 part 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
+  NewsBloc({@required NewsRepository newsRepository})
+      : assert(newsRepository != null),
+        _newsRepository = newsRepository;
+
+  final NewsRepository _newsRepository;
+
   @override
   NewsState get initialState => NewsInitialState();
 
   @override
   Stream<NewsState> mapEventToState(NewsEvent event) async* {
     if (event is LoadNewsEvent) {
-      yield NewsInitialLoadState();
-      await Future.delayed(Duration(seconds: 2));
-      yield NewsLoadedState(items: [
-        newsMock1,
-        newsMock1,
-        newsMock1,
-        newsMock1,
-      ]);
+      yield* _mapLoadNewsEvent();
+    }
+  }
+
+  Stream<NewsState> _mapLoadNewsEvent() async* {
+    yield NewsInitialLoadState();
+    try {
+      final news = await _newsRepository.fetchNews();
+      yield NewsLoadedState(items: news);
+    } catch (exception) {
+      yield NewsLoadErrorState();
     }
   }
 }

@@ -16,7 +16,9 @@ class NewsPage extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     return BlocProvider(
-      create: (context) => NewsBloc()..add(LoadNewsEvent()),
+      create: (context) => NewsBloc(
+        newsRepository: RepositoryProvider.of(context),
+      )..add(LoadNewsEvent()),
       child: NewsList(),
     );
   }
