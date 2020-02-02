@@ -19,18 +19,20 @@ class NewsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _NewsItemHeader(title: title),
-        _NewsItemContent(imageUrl: imageUrl),
-      ],
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _NewsItemContent(imageUrl: imageUrl),
+          _NewsItemFooter(title: title),
+        ],
+      ),
     );
   }
 }
 
-class _NewsItemHeader extends StatelessWidget {
-  const _NewsItemHeader({@required this.title});
+class _NewsItemFooter extends StatelessWidget {
+  const _NewsItemFooter({@required this.title});
 
   final String title;
 
@@ -54,7 +56,6 @@ class _NewsItemContent extends StatelessWidget {
       color: Colors.red.withOpacity(0.1),
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        height: 250,
         fit: BoxFit.fitWidth,
       ),
     );

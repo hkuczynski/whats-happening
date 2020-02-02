@@ -12,7 +12,10 @@ class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("What's happening")),
+      appBar: AppBar(
+        title: Text("What's happening"),
+        centerTitle: false,
+      ),
       body: _buildContent(context),
     );
   }
