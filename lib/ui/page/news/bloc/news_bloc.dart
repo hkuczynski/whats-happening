@@ -24,6 +24,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   Stream<NewsState> mapEventToState(NewsEvent event) async* {
     if (event is LoadNewsEvent) {
       yield* _mapLoadNewsEvent();
+    } else if (event is RefreshNewsEvent && state is NewsLoadedState) {
+      yield* _mapRefreshNewsEvent(state);
     }
   }
 
@@ -34,6 +36,17 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       yield NewsLoadedState(items: news);
     } catch (exception) {
       yield NewsLoadErrorState();
+    }
+  }
+
+  Stream<NewsState> _mapRefreshNewsEvent(NewsLoadedState state) async* {
+    yield state.copyWith(isRefreshing: true);
+
+    try {
+      final news = await _newsRepository.fetchNews();
+      yield state.copyWith(items: news, isRefreshing: false);
+    } catch (exception) {
+      yield state;
     }
   }
 }

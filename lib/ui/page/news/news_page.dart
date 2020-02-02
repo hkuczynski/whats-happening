@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:whats_happening/ui/page/news/widget/news_item.dart';
 
 import './bloc/news_bloc.dart';
@@ -24,16 +27,44 @@ class NewsPage extends StatelessWidget {
   }
 }
 
-class NewsList extends StatelessWidget {
+class NewsList extends StatefulWidget {
+  @override
+  _NewsListState createState() => _NewsListState();
+}
+
+class _NewsListState extends State<NewsList> {
+  Completer<void> _refreshCompleter;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshCompleter = Completer<void>();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return BlocListener<NewsBloc, NewsState>(
+      condition: (newState, oldState) =>
+          oldState is NewsLoadedState && oldState.isRefreshing && newState is NewsLoadedState && !newState.isRefreshing,
+      listener: (context, state) {
+        _refreshCompleter?.complete();
+        _refreshCompleter = Completer();
+      },
+      child: _buildContent(context),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return BlocBuilder<NewsBloc, NewsState>(
       builder: (context, state) {
         if (state is NewsLoadedState) {
-          return ListView.separated(
-            itemBuilder: (context, index) => _buildItem(context, index, state),
-            separatorBuilder: _buildSeparator,
-            itemCount: state.items.length,
+          return RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: ListView.separated(
+              itemBuilder: (context, index) => _buildItem(context, index, state),
+              separatorBuilder: _buildSeparator,
+              itemCount: state.items.length,
+            ),
           );
         } else {
           return CircularProgressIndicator();
@@ -53,5 +84,10 @@ class NewsList extends StatelessWidget {
 
   Widget _buildSeparator(BuildContext context, int index) {
     return Container(height: 12);
+  }
+
+  Future<void> _onRefresh() {
+    BlocProvider.of<NewsBloc>(context).add(RefreshNewsEvent());
+    return _refreshCompleter.future;
   }
 }

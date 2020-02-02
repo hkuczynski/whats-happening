@@ -30,4 +30,14 @@ class NewsLoadedState extends NewsState {
 
   @override
   List<Object> get props => [items, isRefreshing];
+
+  NewsLoadedState copyWith({
+    List<News> items,
+    bool isRefreshing,
+  }) {
+    return NewsLoadedState(
+      items: items ?? this.items,
+      isRefreshing: isRefreshing ?? this.isRefreshing,
+    );
+  }
 }

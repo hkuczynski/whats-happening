@@ -16,4 +16,15 @@ class News {
   final String imageUrl;
   final DateTime publishedAt;
   final String content;
+
+  static News fromJson(Map<String, dynamic> json) {
+    return News(
+      title: json["title"],
+      description: json["description"],
+      url: json["url"],
+      imageUrl: json["urlToImage"],
+      author: json["author"],
+      content: json["content"],
+    );
+  }
 }

@@ -20,6 +20,7 @@ class NewsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _NewsItemHeader(title: title),
         _NewsItemContent(imageUrl: imageUrl),
@@ -53,7 +54,8 @@ class _NewsItemContent extends StatelessWidget {
       color: Colors.red.withOpacity(0.1),
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        height: 150,
+        height: 250,
+        fit: BoxFit.fitWidth,
       ),
     );
   }

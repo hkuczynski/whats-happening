@@ -1,3 +1,6 @@
+# Secrets
+assets/secret_config.json
+
 # Miscellaneous
 *.class
 *.lock

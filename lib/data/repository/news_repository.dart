@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-import 'package:whats_happening/data/mock/news.dart';
 import 'package:whats_happening/data/model/news.dart';
 
 class NewsRepository {
@@ -11,12 +10,14 @@ class NewsRepository {
   final Dio _dio;
 
   Future<List<News>> fetchNews() async {
-    await Future.delayed(Duration(seconds: 2));
-    return [
-      newsMock1,
-      newsMock1,
-      newsMock1,
-      newsMock1,
-    ];
+    final response = await _dio.get(
+      "top-headlines",
+      queryParameters: {
+        "country": "us",
+        "category": "business",
+      },
+    );
+    final news = (response.data["articles"] as List<dynamic>)?.map((jsonEntry) => News.fromJson(jsonEntry));
+    return news.toList();
   }
 }
