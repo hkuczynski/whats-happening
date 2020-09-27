@@ -9,21 +9,28 @@ class NewsItem extends StatelessWidget {
     @required this.title,
     @required this.description,
     @required this.imageUrl,
+    this.onPressed,
   }) : assert(title != null);
 
   final String title;
   final String description;
   final String imageUrl;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _NewsItemContent(imageUrl: imageUrl),
-          _NewsItemFooter(title: title),
-        ],
+      child: Material(
+        child: InkWell(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _NewsItemContent(imageUrl: imageUrl),
+              _NewsItemFooter(title: title),
+            ],
+          ),
+          onTap: onPressed,
+        ),
       ),
     );
   }

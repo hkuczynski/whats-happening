@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:whats_happening/app/router.dart';
 import 'package:whats_happening/ui/constants.dart';
+import 'package:whats_happening/ui/flows/news/news_navigator.dart';
 import 'package:whats_happening/util/dependency_provider.dart';
 
 void main() => runApp(App());
@@ -27,8 +27,7 @@ class App extends StatelessWidget {
           textTheme: TextTheme(headline6: TextStyle(color: AppColors.darkGrey, fontSize: 18)),
         ),
       ),
-      initialRoute: '/',
-      onGenerateRoute: Router.generateRoute,
+      home: NewsNavigator(),
     );
   }
 }

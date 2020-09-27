@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:whats_happening/ui/page/news/widget/news_item.dart';
-
-import './bloc/news_bloc.dart';
+import '../news_navigator.dart';
+import 'bloc/news_bloc.dart';
+import 'widget/news_item.dart';
 
 class NewsPage extends StatelessWidget {
   @override
@@ -70,7 +70,7 @@ class _NewsListState extends State<NewsList> {
             ),
           );
         } else {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
       },
     );
@@ -82,6 +82,9 @@ class _NewsListState extends State<NewsList> {
       title: news.title,
       description: news.description,
       imageUrl: news.imageUrl,
+      onPressed: () {
+        Navigator.of(context).pushNamed(NewsNavigatorRoutes.newsDetails);
+      },
     );
   }
 
