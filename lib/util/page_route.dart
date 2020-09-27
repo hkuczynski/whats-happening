@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AppPageRoutes {
   static PageRoute adaptiveRoute({WidgetBuilder builder, RouteSettings settings, bool fullscreen}) {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:whats_happening/util/page_route.dart';
-
-import 'news_details/news_details_page.dart';
 import 'news/news_page.dart';
+import 'news_details/news_details_page.dart';
 
 class NewsNavigatorRoutes {
   static const String news = 'news';

@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
 import 'package:whats_happening/data/model/news.dart';
 import 'package:whats_happening/data/repository/news_repository.dart';

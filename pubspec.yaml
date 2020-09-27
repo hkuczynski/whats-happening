@@ -21,6 +21,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  import_sorter:
 
 flutter:
 
@@ -28,3 +29,6 @@ flutter:
 
   assets:
   - secret_config.json
+
+import_sorter:
+  comments: false
