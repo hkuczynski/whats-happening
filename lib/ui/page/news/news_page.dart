@@ -47,7 +47,7 @@ class _NewsListState extends State<NewsList> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<NewsBloc, NewsState>(
-      condition: (newState, oldState) =>
+      listenWhen: (newState, oldState) =>
           oldState is NewsLoadedState && oldState.isRefreshing && newState is NewsLoadedState && !newState.isRefreshing,
       listener: (context, state) {
         _refreshCompleter?.complete();

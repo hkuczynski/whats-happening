@@ -6,7 +6,7 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return AppPageRoutes.fadeRoute(builder: (_) => NewsPage());
+        return AppPageRoutes.adaptiveRoute(builder: (_) => NewsPage());
       default:
         return null;
     }

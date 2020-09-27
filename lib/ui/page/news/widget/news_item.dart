@@ -9,9 +9,7 @@ class NewsItem extends StatelessWidget {
     @required this.title,
     @required this.description,
     @required this.imageUrl,
-  })  : assert(title != null),
-        assert(description != null),
-        assert(imageUrl != null);
+  }) : assert(title != null);
 
   final String title;
   final String description;

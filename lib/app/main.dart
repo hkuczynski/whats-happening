@@ -24,7 +24,7 @@ class App extends StatelessWidget {
           brightness: Brightness.light,
           color: Colors.transparent,
           elevation: 0,
-          textTheme: TextTheme(title: TextStyle(color: AppColors.darkGrey, fontSize: 18)),
+          textTheme: TextTheme(headline6: TextStyle(color: AppColors.darkGrey, fontSize: 18)),
         ),
       ),
       initialRoute: '/',

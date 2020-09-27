@@ -13,12 +13,10 @@ part 'news_state.dart';
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc({@required NewsRepository newsRepository})
       : assert(newsRepository != null),
-        _newsRepository = newsRepository;
+        _newsRepository = newsRepository,
+        super(NewsInitialState());
 
   final NewsRepository _newsRepository;
-
-  @override
-  NewsState get initialState => NewsInitialState();
 
   @override
   Stream<NewsState> mapEventToState(NewsEvent event) async* {
